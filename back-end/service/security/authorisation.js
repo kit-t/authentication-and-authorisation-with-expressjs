@@ -10,13 +10,14 @@ const authorisation = (role) => {
 		console.log("Access Token", xAccessToken);
 		if (xAccessToken) {
 			const decoded = jwt.verify(xAccessToken, config.TOKEN_KEY);
-			user = decoded.account_type;
+			user = decoded.user?.account_type;
+			console.log(decoded, user)
 			if (convertToRole(user) >= convertToRole(role)) {
 				return next();
 			}
 		}
         console.log("Not authorised.");
-		
+
 		return res.status(401).send({
 			auth: false,
 			message: "You are not authorised to access this page.",

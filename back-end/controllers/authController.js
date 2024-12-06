@@ -40,7 +40,7 @@ const login = async (req, res) => {
             username: user.username,
             token: token,
             account_type: user.account_type
-        }, { httpOnly: true, signed: true, secure: false, maxAge: 60 * 60 * 24 * 1000 })
+        }, { httpOnly: true, signed: true, secure: true, maxAge: 60 * 60 * 24 * 1000, sameSite: "none" })
         return res.status(200).json({
             ok: true,
             message: "Login Successful",
